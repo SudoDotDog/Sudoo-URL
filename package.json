@@ -18,7 +18,9 @@
     "url": "https://github.com/SudoDotDog/Sudoo-URL/issues"
   },
   "homepage": "https://github.com/SudoDotDog/Sudoo-URL#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@sudoo/buffer": "^1.0.1"
+  },
   "devDependencies": {
     "@sudoo/io": "^1.6.2",
     "@sudoo/triforce": "^2.1.0"
