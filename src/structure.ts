@@ -4,7 +4,9 @@
  * @description Structure
  */
 
+import { buildUrl } from "./build";
 import { URLLeanStructure } from "./declare";
+import { URL_PROTOCOL } from "./enum";
 
 export class URLStructure {
 
@@ -13,13 +15,22 @@ export class URLStructure {
         return new URLStructure();
     }
 
-    private _protocol: string = 'https';
-    private _host: string[] = ['example', 'com'];
-    private _path: string[] = [];
-    private _params: Record<string, string> = {};
+    private _protocol: URL_PROTOCOL;
+    private _host: string[];
+    private _path: string[];
+    private _params: Record<string, string>;
 
     private constructor() {
 
+        this._protocol = URL_PROTOCOL.HTTPS;
+        this._host = ['example', 'com'];
+        this._path = [];
+        this._params = {};
+    }
+
+    public build(): string {
+
+        return buildUrl(this.flat());
     }
 
     public flat(): URLLeanStructure {
