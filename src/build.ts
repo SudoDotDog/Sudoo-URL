@@ -14,7 +14,9 @@ export const buildUrl = (structure: URLLeanStructure): string => {
 
     const builtHost: string = structure.host.join('.');
     const builtPath: string = structure.path.join('/');
-    const builtParams: string = parsedParams.length > 0 ? parsedParams : '';
+    const builtParams: string = parsedParams.length > 0
+        ? ('?' + parsedParams)
+        : '';
 
-    return `${structure.protocol}://${builtHost}/${builtPath}?${builtParams}`;
+    return `${structure.protocol}://${builtHost}/${builtPath}${builtParams}`;
 };

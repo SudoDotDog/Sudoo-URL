@@ -1,7 +1,7 @@
 /**
  * @author WMXPY
- * @namespace Asynchronous
- * @description Parallel
+ * @namespace URL
+ * @description Structure
  * @override Unit Test
  */
 
