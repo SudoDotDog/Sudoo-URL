@@ -34,7 +34,6 @@ export const parseUrl = (url: string): URLLeanStructure => {
     loop: for (const each of list) {
 
         iter: switch (each) {
-
             case '.': {
                 switch (status) {
                     case PARSE_STATUS.HOST: {
