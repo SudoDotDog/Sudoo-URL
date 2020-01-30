@@ -14,6 +14,8 @@ enum PARSE_STATUS {
     PROTOCOL_END_LAST = "PROTOCOL_END_LAST",
     HOST = "HOST",
     PATH = "PATH",
+    PARAMS_KEY = "PARAMS_KEY",
+    PARAMS_VALUE = "PARAMS_VALUE",
 }
 
 export const parseUrl = (url: string): URLLeanStructure => {
@@ -26,6 +28,7 @@ export const parseUrl = (url: string): URLLeanStructure => {
     const params: Record<string, string> = {};
 
     let status: PARSE_STATUS = PARSE_STATUS.PROTOCOL as PARSE_STATUS;
+    const currentKeyBuffer: StringBuffer = StringBuffer.create();
     const buffer: StringBuffer = StringBuffer.create();
 
     loop: for (const each of list) {
@@ -66,22 +69,74 @@ export const parseUrl = (url: string): URLLeanStructure => {
                         status = PARSE_STATUS.PATH;
                         continue loop;
                     }
+                    case PARSE_STATUS.PATH: {
+                        path.push(buffer.flush());
+                        continue loop;
+                    }
                 }
                 break iter;
             }
+            case '?': {
+                switch (status) {
+                    case PARSE_STATUS.PATH: {
+                        path.push(buffer.flush());
+                        status = PARSE_STATUS.PARAMS_KEY;
+                        continue loop;
+                    }
+                }
+                break iter;
+            }
+            case '=': {
+                switch (status) {
+                    case PARSE_STATUS.PARAMS_KEY: {
+                        currentKeyBuffer.add(buffer.flush());
+                        status = PARSE_STATUS.PARAMS_VALUE;
+                        continue loop;
+                    }
+                }
+                break iter;
+            }
+            case '&': {
+                switch (status) {
+                    case PARSE_STATUS.PARAMS_KEY: {
+                        if (currentKeyBuffer.length > 0) {
+                            params[currentKeyBuffer.flush()] = buffer.flush();
+                            status = PARSE_STATUS.PARAMS_KEY;
+                        }
+                        continue loop;
+                    }
+                    case PARSE_STATUS.PARAMS_VALUE: {
+                        params[currentKeyBuffer.flush()] = buffer.flush();
+                        status = PARSE_STATUS.PARAMS_KEY;
+                        continue loop;
+                    }
+                }
+            }
         }
-
         buffer.add(each);
     }
+
+    if (buffer.length > 0) {
+        switch (status) {
+            case PARSE_STATUS.HOST: {
+                host.push(buffer.flush());
+                break;
+            }
+            case PARSE_STATUS.PATH: {
+                path.push(buffer.flush());
+                break;
+            }
+            case PARSE_STATUS.PARAMS_VALUE: {
+                params[currentKeyBuffer.flush()] = buffer.flush();
+                break;
+            }
+        }
+    }
+
     return {
-        protocol: protocol as any,
-        host,
-        path,
+        protocol: protocol.trim() as any,
+        host: host.filter(Boolean),
+        path: path.filter(Boolean),
         params,
     };
-};
-
-export const isCharNumber = (target: string): boolean => {
-
-    return ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(target);
 };
