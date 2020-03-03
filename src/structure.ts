@@ -32,10 +32,10 @@ export class URLStructure {
         return new URLStructure(lean.protocol, lean.host, lean.path, lean.params);
     }
 
-    private _protocol: URL_PROTOCOL;
-    private _host: string[];
-    private _path: string[];
-    private _params: Record<string, string>;
+    private readonly _protocol: URL_PROTOCOL;
+    private readonly _host: string[];
+    private readonly _path: string[];
+    private readonly _params: Record<string, string>;
 
     private constructor(
         protocol: URL_PROTOCOL = URL_PROTOCOL.HTTPS,
