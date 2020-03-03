@@ -47,7 +47,8 @@ export class URLStructure {
 
     public build(): string {
 
-        return buildUrl(this.flat());
+        const lean: URLLeanStructure = this.flat();
+        return buildUrl(lean);
     }
 
     public flat(): URLLeanStructure {

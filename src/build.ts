@@ -8,15 +8,23 @@ import { URLLeanStructure } from "./declare";
 
 export const buildUrl = (structure: URLLeanStructure): string => {
 
-    const parsedParams: string = Object.keys(structure.params).map((key: string) => {
-        return `${key}=${structure.params[key]}`;
-    }).join('&');
-
     const builtHost: string = structure.host.join('.');
     const builtPath: string = structure.path.join('/');
-    const builtParams: string = parsedParams.length > 0
-        ? ('?' + parsedParams)
-        : '';
+    const builtParams: string = buildParams(structure.params);
 
     return `${structure.protocol}://${builtHost}/${builtPath}${builtParams}`;
+};
+
+export const buildParams = (params: Record<string, string>): string => {
+
+    const keys: string[] = Object.keys(params);
+    if (keys.length === 0) {
+        return '';
+    }
+
+    const parsedParams: string = keys.map((key: string) => {
+        return `${key}=${params[key]}`;
+    }).join('&');
+
+    return `?${parsedParams}`;
 };
