@@ -51,6 +51,18 @@ export class URLStructure {
         return buildUrl(lean);
     }
 
+    public joinPath(...path: string[]): string {
+
+        const lean: URLLeanStructure = this.flat();
+        return buildUrl({
+            ...lean,
+            path: [
+                ...lean.path,
+                ...path,
+            ],
+        });
+    }
+
     public flat(): URLLeanStructure {
 
         return {
