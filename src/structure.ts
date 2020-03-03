@@ -11,12 +11,17 @@ import { parseUrl } from "./parse";
 
 export class URLStructure {
 
-    public static create(): URLStructure {
+    public static empty(): URLStructure {
 
         return new URLStructure();
     }
 
-    public static parse(url: string): URLStructure {
+    public static create(protocol: URL_PROTOCOL, host: string[], path: string[], params: Record<string, string>): URLStructure {
+
+        return new URLStructure(protocol, host, path, params);
+    }
+
+    public static fromUrl(url: string): URLStructure {
 
         const parsed: URLLeanStructure = parseUrl(url);
         return this.fromLean(parsed);
