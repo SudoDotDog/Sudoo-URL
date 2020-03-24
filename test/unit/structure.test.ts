@@ -63,4 +63,18 @@ describe('Given {URLStructure} Class', (): void => {
         expect(structure).to.be.instanceOf(URLStructure);
         expect(structure.joinPath('path')).to.be.equal(`${protocol}://example.com/example/path`);
     });
+
+    it('should be able to create from url', (): void => {
+
+        const structure: URLStructure = URLStructure.fromUrl('https://example.com');
+        expect(structure).to.be.instanceOf(URLStructure);
+        expect(structure.build()).to.be.equal('https://example.com/');
+    });
+
+    it('should be able to generate from url', (): void => {
+
+        const structure: URLStructure = URLStructure.generateUrl(() => 'https://example.com');
+        expect(structure).to.be.instanceOf(URLStructure);
+        expect(structure.build()).to.be.equal('https://example.com/');
+    });
 });
