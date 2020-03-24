@@ -21,6 +21,18 @@ export class URLStructure {
         return new URLStructure(protocol, host, path, params);
     }
 
+    public static generateUrl<T extends any[] = []>(func: (...args: T) => string, ...args: T): URLStructure {
+
+        const url: string = func(...args);
+        return this.fromUrl(url);
+    }
+
+    public static generateLean<T extends any[] = []>(func: (...args: T) => URLLeanStructure, ...args: T): URLStructure {
+
+        const lean: URLLeanStructure = func(...args);
+        return this.fromLean(lean);
+    }
+
     public static fromUrl(url: string): URLStructure {
 
         const parsed: URLLeanStructure = parseUrl(url);
