@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/SudoDotDog/Sudoo-URL#readme",
   "dependencies": {
-    "@sudoo/buffer": "^1.1.0"
+    "@sudoo/buffer": "^1.2.0"
   },
   "devDependencies": {
     "@sudoo/io": "^1.7.0",
