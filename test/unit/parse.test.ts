@@ -13,6 +13,7 @@ import { parseUrl } from "../../src/parse";
 
 describe('Given [Parse] Helper Functions', (): void => {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const chance: Chance.Chance = new Chance('url-parse');
 
     it('should be able to parse base url', (): void => {
