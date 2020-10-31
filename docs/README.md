@@ -14,3 +14,38 @@ yarn add @sudoo/url
 # Or
 npm install @sudoo/url --save
 ```
+
+## Build URL
+
+```ts
+import { buildUrl, URLLeanStructure } from "@sudoo/url";
+
+const structure: URLLeanStructure = {
+
+    protocol: URL_PROTOCOL.HTTPS,
+    host: [hostName, 'com'],
+    path: [],
+    params: {},
+};
+const url: string = buildUrl(structure);
+```
+
+## Parse URL
+
+```ts
+import { parseUrl, URLLeanStructure } from "@sudoo/url";
+
+const url: string = 'http://example.com/first?a=b';
+
+const result: URLLeanStructure = parseUrl(url);
+
+result; 
+/** {
+    protocol: URL_PROTOCOL.HTTP,
+    host: ['example', 'com'],
+    path: ['first'],
+    params: {
+        a: 'b',
+    },
+}) */
+```
