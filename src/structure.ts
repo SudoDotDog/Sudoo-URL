@@ -16,18 +16,30 @@ export class URLStructure {
         return new URLStructure();
     }
 
-    public static create(protocol: URL_PROTOCOL, host: string[], path: string[], params: Record<string, string>): URLStructure {
+    public static create(
+        protocol: URL_PROTOCOL,
+        host: string[],
+        path: string[],
+        hash: string[],
+        params: Record<string, string>,
+    ): URLStructure {
 
-        return new URLStructure(protocol, host, path, params);
+        return new URLStructure(protocol, host, path, hash, params);
     }
 
-    public static generateUrl<T extends any[] = []>(func: (...argsArg: T) => string, ...args: T): URLStructure {
+    public static generateUrl<T extends any[] = []>(
+        func: (...argsArg: T) => string,
+        ...args: T
+    ): URLStructure {
 
         const url: string = func(...args);
         return this.fromUrl(url);
     }
 
-    public static generateLean<T extends any[] = []>(func: (...argsArg: T) => URLLeanStructure, ...args: T): URLStructure {
+    public static generateLean<T extends any[] = []>(
+        func: (...argsArg: T) => URLLeanStructure,
+        ...args: T
+    ): URLStructure {
 
         const lean: URLLeanStructure = func(...args);
         return this.fromLean(lean);
@@ -41,24 +53,33 @@ export class URLStructure {
 
     public static fromLean(lean: URLLeanStructure): URLStructure {
 
-        return new URLStructure(lean.protocol, lean.host, lean.path, lean.params);
+        return new URLStructure(
+            lean.protocol,
+            lean.host,
+            lean.path,
+            lean.hash,
+            lean.params,
+        );
     }
 
     private readonly _protocol: URL_PROTOCOL;
     private readonly _host: string[];
     private readonly _path: string[];
+    private readonly _hash: string[];
     private readonly _params: Record<string, string>;
 
     private constructor(
         protocol: URL_PROTOCOL = URL_PROTOCOL.HTTPS,
         host: string[] = [],
         path: string[] = [],
+        hash: string[] = [],
         params: Record<string, string> = {},
     ) {
 
         this._protocol = protocol;
         this._host = host;
         this._path = path;
+        this._hash = hash;
         this._params = params;
     }
 
@@ -68,10 +89,18 @@ export class URLStructure {
         return buildUrl(lean);
     }
 
-    public joinPath(...path: string[]): string {
+    public replaceProtocol(protocol: URL_PROTOCOL): URLStructure {
+
+        return URLStructure.fromLean({
+            ...this.flat(),
+            protocol,
+        });
+    }
+
+    public joinPath(...path: string[]): URLStructure {
 
         const lean: URLLeanStructure = this.flat();
-        return buildUrl({
+        return URLStructure.fromLean({
             ...lean,
             path: [
                 ...lean.path,
@@ -80,13 +109,86 @@ export class URLStructure {
         });
     }
 
+    public replacePath(...path: string[]): URLStructure {
+
+        return URLStructure.fromLean({
+            ...this.flat(),
+            path,
+        });
+    }
+
+    public joinHash(...hash: string[]): URLStructure {
+
+        const lean: URLLeanStructure = this.flat();
+        return URLStructure.fromLean({
+            ...lean,
+            hash: [
+                ...lean.hash,
+                ...hash,
+            ],
+        });
+    }
+
+    public replaceHash(...hash: string[]): URLStructure {
+
+        return URLStructure.fromLean({
+            ...this.flat(),
+            hash,
+        });
+    }
+
+    public getParamOrNull(key: string): string | null {
+
+        return this._params[key] ?? null;
+    }
+
+    public joinParams(params: Record<string, string>): URLStructure {
+
+        const lean: URLLeanStructure = this.flat();
+        return URLStructure.fromLean({
+            ...lean,
+            params: {
+                ...lean.params,
+                ...params,
+            },
+        });
+    }
+
+    public deleteParams(...keys: string[]): URLStructure {
+
+        const lean: URLLeanStructure = this.flat();
+        const params: Record<string, string> = { ...lean.params };
+
+        for (const key of keys) {
+            delete params[key];
+        }
+        return URLStructure.fromLean({
+            ...lean,
+            params,
+        });
+    }
+
+    public replaceParams(params: Record<string, string>): URLStructure {
+
+        return URLStructure.fromLean({
+            ...this.flat(),
+            params,
+        });
+    }
+
+    public clone(): URLStructure {
+
+        return URLStructure.fromLean(this.flat());
+    }
+
     public flat(): URLLeanStructure {
 
         return {
             protocol: this._protocol,
-            host: this._host,
-            path: this._path,
-            params: this._params,
+            host: [...this._host],
+            path: [...this._path],
+            hash: [...this._hash],
+            params: { ...this._params },
         };
     }
 }
