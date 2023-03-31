@@ -1,11 +1,11 @@
 # Sudoo-URL
 
-[![Build Status](https://travis-ci.com/SudoDotDog/Sudoo-URL.svg?branch=master)](https://travis-ci.com/SudoDotDog/Sudoo-URL)
+[![Continuous Integration](https://github.com/SudoDotDog/Sudoo-URL/actions/workflows/ci.yml/badge.svg)](https://github.com/SudoDotDog/Sudoo-URL/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/SudoDotDog/Sudoo-URL/branch/master/graph/badge.svg)](https://codecov.io/gh/SudoDotDog/Sudoo-URL)
-[![npm version](https://badge.fury.io/js/%40sudoo%2Furl.svg)](https://www.npmjs.com/package/@sudoo/url)
+[![npm version](https://badge.fury.io/js/%40sudoo%2Furl.svg)](https://badge.fury.io/js/%40sudoo%2Furl)
 [![downloads](https://img.shields.io/npm/dm/@sudoo/url.svg)](https://www.npmjs.com/package/@sudoo/url)
 
-:snail: URL Parser & Builder
+URL Parser & Builder
 
 ## Install
 
@@ -25,6 +25,7 @@ const structure: URLLeanStructure = {
     protocol: URL_PROTOCOL.HTTPS,
     host: [hostName, 'com'],
     path: [],
+    hash: [],
     params: {},
 };
 const url: string = buildUrl(structure);
@@ -44,6 +45,7 @@ result;
     protocol: URL_PROTOCOL.HTTP,
     host: ['example', 'com'],
     path: ['first'],
+    hash: [],
     params: {
         a: 'b',
     },
