@@ -8,12 +8,17 @@ import { URLLeanStructure } from "./declare";
 
 export const buildUrl = (structure: URLLeanStructure): string => {
 
-    const builtHost: string = structure.host.join('.');
+    const builtHost: string = buildHost(structure);
     const builtPath: string = buildPath(structure);
     const builtHash: string = buildHash(structure);
     const builtParams: string = buildParams(structure);
 
     return `${structure.protocol}://${builtHost}/${builtPath}${builtHash}${builtParams}`;
+};
+
+export const buildHost = (structure: URLLeanStructure): string => {
+
+    return structure.host.join('.');
 };
 
 export const buildPath = (structure: URLLeanStructure): string => {
