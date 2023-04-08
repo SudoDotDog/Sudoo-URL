@@ -7,7 +7,7 @@
 
 import { expect } from "chai";
 import * as Chance from "chance";
-import { buildUrl, URLLeanStructure, URL_PROTOCOL, buildStandaloneHost } from "../../src";
+import { URLLeanStructure, URL_PROTOCOL, buildStandaloneHost } from "../../src";
 
 describe('Given [Standalone] Helper Functions', (): void => {
 
