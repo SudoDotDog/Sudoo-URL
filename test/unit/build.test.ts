@@ -69,6 +69,26 @@ describe('Given [Build] Helper Functions', (): void => {
         expect(result).to.be.equal(`https://${hostName}.com/?hello=world`);
     });
 
+    it('should be able to build with multi param and port', (): void => {
+
+        const hostName: string = chance.first();
+
+        const structure: URLLeanStructure = {
+
+            protocol: URL_PROTOCOL.HTTPS,
+            host: [hostName, 'com'],
+            port: "2020",
+            path: [],
+            hash: [],
+            params: {
+                hello: 'world',
+            },
+        };
+
+        const result: string = buildUrl(structure);
+        expect(result).to.be.equal(`https://${hostName}.com:2020/?hello=world`);
+    });
+
     it('should be able to build url with hash', (): void => {
 
         const hostName: string = chance.first();
@@ -85,6 +105,24 @@ describe('Given [Build] Helper Functions', (): void => {
 
         const result: string = buildUrl(structure);
         expect(result).to.be.equal(`https://${hostName}.com/#/hello/world`);
+    });
+
+    it('should be able to build url with hash and port', (): void => {
+
+        const hostName: string = chance.first();
+
+        const structure: URLLeanStructure = {
+
+            protocol: URL_PROTOCOL.HTTPS,
+            host: [hostName, 'com'],
+            port: "8080",
+            path: [],
+            hash: ['hello', 'world'],
+            params: {},
+        };
+
+        const result: string = buildUrl(structure);
+        expect(result).to.be.equal(`https://${hostName}.com:8080/#/hello/world`);
     });
 
     it('should be able to build url with hash and params', (): void => {
@@ -105,6 +143,26 @@ describe('Given [Build] Helper Functions', (): void => {
 
         const result: string = buildUrl(structure);
         expect(result).to.be.equal(`https://${hostName}.com/#/hello/world?hello=world`);
+    });
+
+    it('should be able to build url with hash, port and params', (): void => {
+
+        const hostName: string = chance.first();
+
+        const structure: URLLeanStructure = {
+
+            protocol: URL_PROTOCOL.HTTPS,
+            host: [hostName, 'com'],
+            port: "6008",
+            path: [],
+            hash: ['hello', 'world'],
+            params: {
+                hello: 'world',
+            },
+        };
+
+        const result: string = buildUrl(structure);
+        expect(result).to.be.equal(`https://${hostName}.com:6008/#/hello/world?hello=world`);
     });
 
     it('should be able to build url with path and hash', (): void => {

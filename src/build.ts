@@ -9,16 +9,25 @@ import { URLLeanStructure } from "./declare";
 export const buildUrl = (structure: URLLeanStructure): string => {
 
     const builtHost: string = buildHost(structure);
+    const builtPort: string = buildPort(structure);
     const builtPath: string = buildPath(structure);
     const builtHash: string = buildHash(structure);
     const builtParams: string = buildParams(structure);
 
-    return `${structure.protocol}://${builtHost}/${builtPath}${builtHash}${builtParams}`;
+    return `${structure.protocol}://${builtHost}${builtPort}/${builtPath}${builtHash}${builtParams}`;
 };
 
 export const buildHost = (structure: URLLeanStructure): string => {
 
-    return structure.host.join('.');
+    return structure.host.map(encodeURIComponent).join('.');
+};
+
+export const buildPort = (structure: URLLeanStructure): string => {
+
+    if (structure.port) {
+        return `:${encodeURIComponent(structure.port)}`;
+    }
+    return '';
 };
 
 export const buildPath = (structure: URLLeanStructure): string => {
