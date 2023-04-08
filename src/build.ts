@@ -30,17 +30,6 @@ export const buildPort = (structure: URLLeanStructure): string => {
     return '';
 };
 
-export const buildPath = (structure: URLLeanStructure): string => {
-
-    const path: string[] = structure.path;
-    if (path.length === 0) {
-        return '';
-    }
-
-    const fixedPath: string[] = path.map(encodeURIComponent);
-    return fixedPath.join('/');
-};
-
 export const buildHash = (structure: URLLeanStructure): string => {
 
     const hash: string[] = structure.hash;
@@ -53,6 +42,17 @@ export const buildHash = (structure: URLLeanStructure): string => {
         return `#/${fixedHash.join('/')}`;
     }
     return `/#/${fixedHash.join('/')}`;
+};
+
+export const buildPath = (structure: URLLeanStructure): string => {
+
+    const path: string[] = structure.path;
+    if (path.length === 0) {
+        return '';
+    }
+
+    const fixedPath: string[] = path.map(encodeURIComponent);
+    return fixedPath.join('/');
 };
 
 export const buildParams = (structure: URLLeanStructure): string => {

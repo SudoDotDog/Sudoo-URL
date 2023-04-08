@@ -8,6 +8,7 @@ import { buildUrl } from "./build";
 import { URLLeanStructure } from "./declare";
 import { URL_PROTOCOL } from "./enum";
 import { parseUrl } from "./parse";
+import { buildStandaloneHash, buildStandaloneHost, buildStandaloneParams, buildStandalonePath, buildStandalonePort } from "./standalone";
 
 export class URLStructure {
 
@@ -32,7 +33,14 @@ export class URLStructure {
         params: Record<string, string>,
     ): URLStructure {
 
-        return new URLStructure(protocol, host, port, path, hash, params);
+        return new URLStructure(
+            protocol,
+            host,
+            port,
+            path,
+            hash,
+            params,
+        );
     }
 
     public static generateUrl<T extends any[] = []>(
@@ -96,9 +104,23 @@ export class URLStructure {
     }
 
     public build(): string {
+        return buildUrl(this.flat());
+    }
 
-        const lean: URLLeanStructure = this.flat();
-        return buildUrl(lean);
+    public buildHost(): string | null {
+        return buildStandaloneHost(this.flat());
+    }
+    public buildPort(): string | null {
+        return buildStandalonePort(this.flat());
+    }
+    public buildHash(): string | null {
+        return buildStandaloneHash(this.flat());
+    }
+    public buildPath(): string | null {
+        return buildStandalonePath(this.flat());
+    }
+    public buildParams(): string | null {
+        return buildStandaloneParams(this.flat());
     }
 
     public replaceProtocol(protocol: URL_PROTOCOL): URLStructure {
