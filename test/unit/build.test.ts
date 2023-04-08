@@ -31,6 +31,24 @@ describe('Given [Build] Helper Functions', (): void => {
         expect(result).to.be.equal(`https://${hostName}.com/`);
     });
 
+    it('should be able to build simple url with port', (): void => {
+
+        const hostName: string = chance.first();
+
+        const structure: URLLeanStructure = {
+
+            protocol: URL_PROTOCOL.HTTPS,
+            host: [hostName, 'com'],
+            port: "1960",
+            path: [],
+            hash: [],
+            params: {},
+        };
+
+        const result: string = buildUrl(structure);
+        expect(result).to.be.equal(`https://${hostName}.com:1960/`);
+    });
+
     it('should be able to build with multi param', (): void => {
 
         const hostName: string = chance.first();

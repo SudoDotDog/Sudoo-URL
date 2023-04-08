@@ -30,6 +30,22 @@ describe('Given [Parse] Helper Functions', (): void => {
         });
     });
 
+    it('should be able to parse base url with port', (): void => {
+
+        const url: string = 'http://example.com:365/';
+
+        const result: URLLeanStructure = parseUrl(url);
+
+        expect(result).to.be.deep.equal({
+            protocol: URL_PROTOCOL.HTTP,
+            host: ['example', 'com'],
+            port: "365",
+            path: [],
+            hash: [],
+            params: {},
+        });
+    });
+
     it('should be able to parse simple url', (): void => {
 
         const url: string = 'http://example.com/first/second';
@@ -40,6 +56,22 @@ describe('Given [Parse] Helper Functions', (): void => {
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
             port: null,
+            path: ['first', 'second'],
+            hash: [],
+            params: {},
+        });
+    });
+
+    it('should be able to parse simple url with port', (): void => {
+
+        const url: string = 'http://example.com:8080/first/second';
+
+        const result: URLLeanStructure = parseUrl(url);
+
+        expect(result).to.be.deep.equal({
+            protocol: URL_PROTOCOL.HTTP,
+            host: ['example', 'com'],
+            port: "8080",
             path: ['first', 'second'],
             hash: [],
             params: {},
@@ -79,6 +111,22 @@ describe('Given [Parse] Helper Functions', (): void => {
         });
     });
 
+    it('should be able to parse url with no slash hash single component and port', (): void => {
+
+        const url: string = 'https://example.com:6007#hello';
+
+        const result: URLLeanStructure = parseUrl(url);
+
+        expect(result).to.be.deep.equal({
+            protocol: URL_PROTOCOL.HTTPS,
+            host: ['example', 'com'],
+            port: "6007",
+            path: [],
+            hash: ['hello'],
+            params: {},
+        });
+    });
+
     it('should be able to parse url with no slash hash', (): void => {
 
         const url: string = 'https://example.com#hello/world/';
@@ -111,6 +159,22 @@ describe('Given [Parse] Helper Functions', (): void => {
         });
     });
 
+    it('should be able to parse url with single before slash hash with port', (): void => {
+
+        const url: string = 'https://example.com:3689/#hello/world';
+
+        const result: URLLeanStructure = parseUrl(url);
+
+        expect(result).to.be.deep.equal({
+            protocol: URL_PROTOCOL.HTTPS,
+            host: ['example', 'com'],
+            port: "3689",
+            path: [],
+            hash: ['hello', 'world'],
+            params: {},
+        });
+    });
+
     it('should be able to parse url with single after slash hash', (): void => {
 
         const url: string = 'https://example.com#/hello/world/';
@@ -121,6 +185,22 @@ describe('Given [Parse] Helper Functions', (): void => {
             protocol: URL_PROTOCOL.HTTPS,
             host: ['example', 'com'],
             port: null,
+            path: [],
+            hash: ['hello', 'world'],
+            params: {},
+        });
+    });
+
+    it('should be able to parse url with single after slash hash and port', (): void => {
+
+        const url: string = 'https://example.com:8080#/hello/world/';
+
+        const result: URLLeanStructure = parseUrl(url);
+
+        expect(result).to.be.deep.equal({
+            protocol: URL_PROTOCOL.HTTPS,
+            host: ['example', 'com'],
+            port: "8080",
             path: [],
             hash: ['hello', 'world'],
             params: {},
@@ -179,6 +259,24 @@ describe('Given [Parse] Helper Functions', (): void => {
         });
     });
 
+    it('should be able to parse root level params url with port - no slash', (): void => {
+
+        const url: string = 'http://example.com:1008?a=b';
+
+        const result: URLLeanStructure = parseUrl(url);
+
+        expect(result).to.be.deep.equal({
+            protocol: URL_PROTOCOL.HTTP,
+            host: ['example', 'com'],
+            port: "1008",
+            path: [],
+            hash: [],
+            params: {
+                a: 'b',
+            },
+        });
+    });
+
     it('should be able to parse root level params url - with slash', (): void => {
 
         const url: string = 'http://example.com/?a=b';
@@ -189,6 +287,24 @@ describe('Given [Parse] Helper Functions', (): void => {
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
             port: null,
+            path: [],
+            hash: [],
+            params: {
+                a: 'b',
+            },
+        });
+    });
+
+    it('should be able to parse root level params url with port - with slash', (): void => {
+
+        const url: string = 'http://example.com:1995/?a=b';
+
+        const result: URLLeanStructure = parseUrl(url);
+
+        expect(result).to.be.deep.equal({
+            protocol: URL_PROTOCOL.HTTP,
+            host: ['example', 'com'],
+            port: "1995",
             path: [],
             hash: [],
             params: {
