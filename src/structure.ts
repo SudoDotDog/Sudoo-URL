@@ -13,18 +13,26 @@ export class URLStructure {
 
     public static empty(): URLStructure {
 
-        return new URLStructure();
+        return new URLStructure(
+            URL_PROTOCOL.UNKNOWN,
+            [],
+            null,
+            [],
+            [],
+            {},
+        );
     }
 
     public static create(
         protocol: URL_PROTOCOL,
         host: string[],
+        port: string | null,
         path: string[],
         hash: string[],
         params: Record<string, string>,
     ): URLStructure {
 
-        return new URLStructure(protocol, host, path, hash, params);
+        return new URLStructure(protocol, host, port, path, hash, params);
     }
 
     public static generateUrl<T extends any[] = []>(
@@ -56,6 +64,7 @@ export class URLStructure {
         return new URLStructure(
             lean.protocol,
             lean.host,
+            lean.port,
             lean.path,
             lean.hash,
             lean.params,
@@ -64,6 +73,7 @@ export class URLStructure {
 
     private readonly _protocol: URL_PROTOCOL;
     private readonly _host: string[];
+    private readonly _port: string | null;
     private readonly _path: string[];
     private readonly _hash: string[];
     private readonly _params: Record<string, string>;
@@ -71,6 +81,7 @@ export class URLStructure {
     private constructor(
         protocol: URL_PROTOCOL = URL_PROTOCOL.HTTPS,
         host: string[] = [],
+        port: string | null,
         path: string[] = [],
         hash: string[] = [],
         params: Record<string, string> = {},
@@ -78,6 +89,7 @@ export class URLStructure {
 
         this._protocol = protocol;
         this._host = host;
+        this._port = port;
         this._path = path;
         this._hash = hash;
         this._params = params;
@@ -186,6 +198,7 @@ export class URLStructure {
         return {
             protocol: this._protocol,
             host: [...this._host],
+            port: null,
             path: [...this._path],
             hash: [...this._hash],
             params: { ...this._params },

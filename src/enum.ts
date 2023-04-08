@@ -10,4 +10,5 @@ export enum URL_PROTOCOL {
     HTTP = "http",
     HTTPS = "https",
     WEB_SOCKET = "ws",
+    UNKNOWN = "unknown",
 }

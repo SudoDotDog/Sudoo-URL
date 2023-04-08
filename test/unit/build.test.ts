@@ -21,6 +21,7 @@ describe('Given [Build] Helper Functions', (): void => {
 
             protocol: URL_PROTOCOL.HTTPS,
             host: [hostName, 'com'],
+            port: null,
             path: [],
             hash: [],
             params: {},
@@ -38,6 +39,7 @@ describe('Given [Build] Helper Functions', (): void => {
 
             protocol: URL_PROTOCOL.HTTPS,
             host: [hostName, 'com'],
+            port: null,
             path: [],
             hash: [],
             params: {
@@ -57,6 +59,7 @@ describe('Given [Build] Helper Functions', (): void => {
 
             protocol: URL_PROTOCOL.HTTPS,
             host: [hostName, 'com'],
+            port: null,
             path: [],
             hash: ['hello', 'world'],
             params: {},
@@ -74,6 +77,7 @@ describe('Given [Build] Helper Functions', (): void => {
 
             protocol: URL_PROTOCOL.HTTPS,
             host: [hostName, 'com'],
+            port: null,
             path: [],
             hash: ['hello', 'world'],
             params: {
@@ -93,6 +97,7 @@ describe('Given [Build] Helper Functions', (): void => {
 
             protocol: URL_PROTOCOL.HTTPS,
             host: [hostName, 'com'],
+            port: null,
             path: ['a', 'b'],
             hash: ['hello', 'world'],
             params: {},
@@ -110,6 +115,7 @@ describe('Given [Build] Helper Functions', (): void => {
 
             protocol: URL_PROTOCOL.HTTPS,
             host: [hostName, 'com'],
+            port: null,
             path: ['a', 'b'],
             hash: [],
             params: {
@@ -130,6 +136,7 @@ describe('Given [Build] Helper Functions', (): void => {
 
             protocol: URL_PROTOCOL.HTTPS,
             host: [hostName, 'com'],
+            port: null,
             path: ['a/dd/d', 'b'],
             hash: ['hell©', 'world'],
             params: {

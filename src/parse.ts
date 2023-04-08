@@ -13,6 +13,7 @@ enum PARSE_STATUS {
     PROTOCOL_END_FIRST = "PROTOCOL_END_FIRST",
     PROTOCOL_END_LAST = "PROTOCOL_END_LAST",
     HOST = "HOST",
+    PORT = "PORT",
     HASH_PATH_DECIDE = "HASH_PATH_DECIDE",
     HASH = "HASH",
     PATH = "PATH",
@@ -26,6 +27,7 @@ export const parseUrl = (url: string): URLLeanStructure => {
 
     let protocol: string = '';
     const host: string[] = [];
+    let port: string | null = null;
     const path: string[] = [];
     const hash: string[] = [];
     const params: Record<string, string> = {};
@@ -54,6 +56,11 @@ export const parseUrl = (url: string): URLLeanStructure => {
                         status = PARSE_STATUS.PROTOCOL_END_FIRST;
                         continue loop;
                     }
+                    case PARSE_STATUS.HOST: {
+                        host.push(buffer.flush());
+                        status = PARSE_STATUS.PORT;
+                        continue loop;
+                    }
                 }
                 break iter;
             }
@@ -70,6 +77,11 @@ export const parseUrl = (url: string): URLLeanStructure => {
                     }
                     case PARSE_STATUS.HOST: {
                         host.push(buffer.flush());
+                        status = PARSE_STATUS.HASH_PATH_DECIDE;
+                        continue loop;
+                    }
+                    case PARSE_STATUS.PORT: {
+                        port = buffer.flush();
                         status = PARSE_STATUS.HASH_PATH_DECIDE;
                         continue loop;
                     }
@@ -98,6 +110,11 @@ export const parseUrl = (url: string): URLLeanStructure => {
                         status = PARSE_STATUS.HASH;
                         continue loop;
                     }
+                    case PARSE_STATUS.PORT: {
+                        port = buffer.flush();
+                        status = PARSE_STATUS.HASH;
+                        continue loop;
+                    }
                     case PARSE_STATUS.PATH: {
                         path.push(buffer.flush());
                         status = PARSE_STATUS.HASH;
@@ -120,6 +137,11 @@ export const parseUrl = (url: string): URLLeanStructure => {
                     }
                     case PARSE_STATUS.HOST: {
                         host.push(buffer.flush());
+                        status = PARSE_STATUS.PARAMS_KEY;
+                        continue loop;
+                    }
+                    case PARSE_STATUS.PORT: {
+                        port = buffer.flush();
                         status = PARSE_STATUS.PARAMS_KEY;
                         continue loop;
                     }
@@ -180,6 +202,10 @@ export const parseUrl = (url: string): URLLeanStructure => {
                 host.push(buffer.flush());
                 break;
             }
+            case PARSE_STATUS.PORT: {
+                port = buffer.flush();
+                break;
+            }
             case PARSE_STATUS.HASH: {
                 hash.push(buffer.flush());
                 break;
@@ -198,6 +224,7 @@ export const parseUrl = (url: string): URLLeanStructure => {
     return {
         protocol: protocol.trim() as any,
         host: host.filter(Boolean).map(decodeURIComponent),
+        port: typeof port === "string" ? port.trim() : port,
         path: path.filter(Boolean).map(decodeURIComponent),
         hash: hash.filter(Boolean).map(decodeURIComponent),
         params: Object.keys(params).reduce((previous: Record<string, string>, current: string) => {

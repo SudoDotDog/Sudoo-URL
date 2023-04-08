@@ -26,6 +26,7 @@ describe('Given {URLStructure} Class', (): void => {
         const structure: URLStructure = URLStructure.fromLean({
             protocol: protocol as any,
             host: ['example', 'com'],
+            port: null,
             path: ['example'],
             hash: [],
             params: {},
@@ -41,6 +42,7 @@ describe('Given {URLStructure} Class', (): void => {
         const structure: URLStructure = URLStructure.fromLean({
             protocol: protocol as any,
             host: ['example', 'com'],
+            port: null,
             path: ['example'],
             hash: [],
             params: {
@@ -59,6 +61,7 @@ describe('Given {URLStructure} Class', (): void => {
         const structure: URLStructure = URLStructure.fromLean({
             protocol: protocol as any,
             host: ['example', 'com'],
+            port: null,
             path: ['example'],
             hash: [],
             params: {},
@@ -74,6 +77,7 @@ describe('Given {URLStructure} Class', (): void => {
         const structure: URLStructure = URLStructure.fromLean({
             protocol: protocol as any,
             host: ['example', 'com'],
+            port: null,
             path: ['example'],
             hash: [],
             params: {},
@@ -89,6 +93,7 @@ describe('Given {URLStructure} Class', (): void => {
         const structure: URLStructure = URLStructure.fromLean({
             protocol: protocol as any,
             host: ['example', 'com'],
+            port: null,
             path: ['example'],
             hash: [],
             params: {},
@@ -104,6 +109,7 @@ describe('Given {URLStructure} Class', (): void => {
         const structure: URLStructure = URLStructure.fromLean({
             protocol: protocol as any,
             host: ['example', 'com'],
+            port: null,
             path: ['example'],
             hash: [],
             params: {},
@@ -119,6 +125,7 @@ describe('Given {URLStructure} Class', (): void => {
         const structure: URLStructure = URLStructure.fromLean({
             protocol: protocol as any,
             host: ['example', 'com'],
+            port: null,
             path: ['example'],
             hash: [],
             params: {
@@ -138,6 +145,7 @@ describe('Given {URLStructure} Class', (): void => {
         const structure: URLStructure = URLStructure.fromLean({
             protocol: protocol as any,
             host: ['example', 'com'],
+            port: null,
             path: ['example'],
             hash: [],
             params: {
@@ -156,6 +164,7 @@ describe('Given {URLStructure} Class', (): void => {
         const structure: URLStructure = URLStructure.fromLean({
             protocol: protocol as any,
             host: ['example', 'com'],
+            port: null,
             path: ['example'],
             hash: [],
             params: {
@@ -173,6 +182,7 @@ describe('Given {URLStructure} Class', (): void => {
         const structure: URLStructure = URLStructure.fromLean({
             protocol: protocol as any,
             host: ['example', 'com'],
+            port: null,
             path: ['example'],
             hash: [],
             params: {

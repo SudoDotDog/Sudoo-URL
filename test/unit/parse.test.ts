@@ -23,6 +23,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             path: [],
             hash: [],
             params: {},
@@ -38,6 +39,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             path: ['first', 'second'],
             hash: [],
             params: {},
@@ -53,6 +55,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             // spell-checker: disable-next-line
             path: ['first', 'second thÏrd'],
             hash: [],
@@ -69,6 +72,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTPS,
             host: ['example', 'com'],
+            port: null,
             path: [],
             hash: ['hello'],
             params: {},
@@ -84,6 +88,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTPS,
             host: ['example', 'com'],
+            port: null,
             path: [],
             hash: ['hello', 'world'],
             params: {},
@@ -99,6 +104,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTPS,
             host: ['example', 'com'],
+            port: null,
             path: [],
             hash: ['hello', 'world'],
             params: {},
@@ -114,6 +120,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTPS,
             host: ['example', 'com'],
+            port: null,
             path: [],
             hash: ['hello', 'world'],
             params: {},
@@ -129,6 +136,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTPS,
             host: ['example', 'com'],
+            port: null,
             path: [],
             hash: ['hello'],
             params: {},
@@ -144,6 +152,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             path: ['first'],
             hash: [],
             params: {
@@ -161,6 +170,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             path: [],
             hash: [],
             params: {
@@ -178,6 +188,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             path: [],
             hash: [],
             params: {
@@ -195,6 +206,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             path: ['first'],
             hash: ['hello', 'world'],
             params: {
@@ -212,6 +224,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             path: ['first'],
             hash: ['hello', 'world'],
             params: {
@@ -230,6 +243,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             path: ['first'],
             hash: ['hello', 'world'],
             params: {
@@ -247,6 +261,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             path: ['first'],
             hash: [],
             params: {
@@ -264,6 +279,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             path: ['first'],
             hash: [],
             params: {
@@ -282,6 +298,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             path: ['first'],
             hash: [],
             params: {
@@ -299,6 +316,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             path: ['first'],
             hash: [],
             params: {
@@ -317,6 +335,7 @@ describe('Given [Parse] Helper Functions', (): void => {
         expect(result).to.be.deep.equal({
             protocol: URL_PROTOCOL.HTTP,
             host: ['example', 'com'],
+            port: null,
             path: ['first'],
             hash: [],
             params: {
