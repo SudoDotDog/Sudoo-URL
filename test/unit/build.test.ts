@@ -224,4 +224,22 @@ describe('Given [Build] Helper Functions', (): void => {
         const result: string = buildUrl(structure);
         expect(result).to.be.equal(`https://${hostName}.com/a%2Fdd%2Fd/b/#/hell%C2%A9/world?hello=w%C2%A9rld&something=el%2Fse`);
     });
+
+    it('should be able to build localhost url with hash params and port', (): void => {
+
+        const structure: URLLeanStructure = {
+
+            protocol: URL_PROTOCOL.HTTPS,
+            host: ['localhost'],
+            port: "8000",
+            path: [],
+            hash: ['hello', 'world'],
+            params: {
+                hello: 'world',
+            },
+        };
+
+        const result: string = buildUrl(structure);
+        expect(result).to.be.equal(`https://localhost:8000/#/hello/world?hello=world`);
+    });
 });

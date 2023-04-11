@@ -460,4 +460,23 @@ describe('Given [Parse] Helper Functions', (): void => {
             },
         });
     });
+
+    it('should be able to parse localhost url with port and params', (): void => {
+
+        const url: string = 'http://localhost:8080/first#second?a=b&c=100';
+
+        const result: URLLeanStructure = parseUrl(url);
+
+        expect(result).to.be.deep.equal({
+            protocol: URL_PROTOCOL.HTTP,
+            host: ['localhost'],
+            port: "8080",
+            path: ['first'],
+            hash: ['second'],
+            params: {
+                a: 'b',
+                c: '100',
+            },
+        });
+    });
 });
