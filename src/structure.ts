@@ -220,7 +220,7 @@ export class URLStructure {
         return {
             protocol: this._protocol,
             host: [...this._host],
-            port: null,
+            port: this._port,
             path: [...this._path],
             hash: [...this._hash],
             params: { ...this._params },
